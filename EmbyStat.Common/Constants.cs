@@ -43,6 +43,18 @@ namespace EmbyStat.Common
             public static string ShowStatusChart => "SHOWS.SHOWSTATUSGRAPH";
         }
 
+        public static class Music
+        {
+            public static string TotalSongs => "MUSIC.TOTALSONGSS";
+            public static string TotalGenres => "MUSIC.TOTALGENRES";
+            public static string OldestPremiered => "MUSIC.OLDESTRELEASED";
+            public static string YoungestPremiered => "MUSIC.YOUNGESTRELEASED";
+            public static string Shortest => "MUSIC.SHORTEST";
+            public static string Longest => "MUSIC.LONGEST";
+            public static string YoungestAdded => "MUSIC.YOUNGESTADDED";
+            public static string TotalPlayLength => "MUSIC.TOTALPLAYLENGTH";
+        }
+
         public static class Users
         {
             public static string TotalWatchedMovies => "USERS.STATS.TOTALWATCHEDMOVIES";
@@ -108,6 +120,8 @@ namespace EmbyStat.Common
 
         //DUPLICATE REASONS
         public static string ByImdb => "BYIMDB";
+
+        public static string ByTitle => "BYTITLE";
 
         public static class PersonType
         {

@@ -21,6 +21,19 @@ namespace EmbyStat.Services.Converters
             };
         }
 
+        public static SongPoster ConvertToSongPoster(Song song, string title)
+        {
+            return new SongPoster
+            {
+                Title = title,
+                Name = song.Name,
+                MediaId = song.Id,
+                Tag = song.Primary,
+                //DurationMinutes = Math.Floor(new TimeSpan(song.RunTimeTicks ?? 0).TotalMinutes),
+                Year = song.PremiereDate?.Year ?? 0
+            };
+        }
+
         public static ShowPoster ConvertToShowPoster(Show show, string title)
         {
             return new ShowPoster

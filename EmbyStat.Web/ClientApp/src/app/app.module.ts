@@ -24,6 +24,7 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { JobsModule } from './pages/jobs/jobs.module';
 import { LogsModule } from './pages/logs/logs.module';
 import { MovieModule } from './pages/movie/movie.module';
+import { MusicModule } from './pages/music/music.module';
 import { PluginModule } from './pages/plugin/plugin.module';
 import { ServerModule } from './pages/server/server.module';
 import { SettingsModule } from './pages/settings/settings.module';
@@ -57,6 +58,7 @@ library.add(faHome, faBirthdayCake, faFilm, faPlayCircle, faUserTie, faUserLock,
     DashboardModule,
     SettingsModule,
     MovieModule,
+    MusicModule,
     PluginModule,
     LogsModule,
     ServerModule,

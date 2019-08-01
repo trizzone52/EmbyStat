@@ -13,6 +13,7 @@ namespace EmbyStat.Common.Models.Entities
         public string Etag { get; set; }
         public string HomePageUrl { get; set; }
         public int MovieCount { get; set; }
+        public int SongCount { get; set; }
         public string OverView { get; set; }
         public DateTimeOffset? BirthDate { get; set; }
         public string IMDB { get; set; }

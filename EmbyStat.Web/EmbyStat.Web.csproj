@@ -44,6 +44,7 @@
     <Compile Remove="ClientApp\src\app\components\**" />
     <Compile Remove="ClientApp\src\app\logs\**" />
     <Compile Remove="ClientApp\src\app\movie\**" />
+    <Compile Remove="ClientApp\src\app\music\**" />
     <Compile Remove="ClientApp\src\app\server\**" />
     <Compile Remove="ClientApp\src\app\settings\**" />
     <Compile Remove="ClientApp\src\app\show\**" />
@@ -56,6 +57,7 @@
     <Content Remove="ClientApp\src\app\components\**" />
     <Content Remove="ClientApp\src\app\logs\**" />
     <Content Remove="ClientApp\src\app\movie\**" />
+    <Content Remove="ClientApp\src\app\music\**" />
     <Content Remove="ClientApp\src\app\server\**" />
     <Content Remove="ClientApp\src\app\settings\**" />
     <Content Remove="ClientApp\src\app\show\**" />
@@ -71,6 +73,7 @@
     <EmbeddedResource Remove="ClientApp\src\app\components\**" />
     <EmbeddedResource Remove="ClientApp\src\app\logs\**" />
     <EmbeddedResource Remove="ClientApp\src\app\movie\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\music\**" />
     <EmbeddedResource Remove="ClientApp\src\app\server\**" />
     <EmbeddedResource Remove="ClientApp\src\app\settings\**" />
     <EmbeddedResource Remove="ClientApp\src\app\show\**" />
@@ -82,6 +85,7 @@
     <None Remove="ClientApp\src\app\components\**" />
     <None Remove="ClientApp\src\app\logs\**" />
     <None Remove="ClientApp\src\app\movie\**" />
+    <None Remove="ClientApp\src\app\music\**" />
     <None Remove="ClientApp\src\app\server\**" />
     <None Remove="ClientApp\src\app\settings\**" />
     <None Remove="ClientApp\src\app\show\**" />

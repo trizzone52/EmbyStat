@@ -21,6 +21,7 @@ import {
 import { LanguageComponent } from './components/language/language.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MoviePosterComponent } from './components/posters/movie-poster/movie-poster.component';
+import { SongPosterComponent } from './components/posters/song-poster/song-poster.component';
 import { PersonListComponent } from './components/posters/person-list/person-list.component';
 import { PersonPosterComponent } from './components/posters/person-poster/person-poster.component';
 import { ShowPosterComponent } from './components/posters/show-poster/show-poster.component';

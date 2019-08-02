@@ -6,6 +6,7 @@
         Movie = 1,
         Episode = 2,
         TvChannel = 3,
-        Trailer = 4
+        Trailer = 4,
+        Music = 5
     }
 }

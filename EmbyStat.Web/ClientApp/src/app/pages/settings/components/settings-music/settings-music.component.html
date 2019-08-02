@@ -1,0 +1,37 @@
+<div class="row" *ngIf="settings !== undefined">
+  <div class="col-12 col-lg-6 pb-1">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="formToShort" class="d-flex flex-column">
+          <p>{{'SETTINGS.MUSIC.TOSHORTTEXT' | translate }}</p>
+          <p>
+            <mat-checkbox formControlName="toShortMusicEnabled">{{ 'FORMLABELS.ENABLETOSHORTMUSIC' | translate | capitalizeFirst }}</mat-checkbox>
+          </p>
+          <mat-form-field>
+            <input matInput placeholder="{{'FORMLABELS.DURATIONINMINUTES' | translate}}" formControlName="toShortMusic" [disableControl]="isSaving || !toShortMovieEnabledControl.value">
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" [disabled]="isSaving"
+          (click)="saveToShortForm()">{{'COMMON.SAVE' | translate | capitalizeFirst}}</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row mt-2" *ngIf="settings !== undefined">
+  <div class="col-12 col-lg-6 pb-1">
+    <mat-card>
+      <mat-card-content>
+        <p>{{ 'SETTINGS.MUSIC.COLLECTIONTYPES' | translate }}</p>
+        <app-collection-selector [list]="settings.mousicCollectionTypes" (newList)="onCollectionListChanged($event)">
+        </app-collection-selector>
+      </mat-card-content>
+      <mat-card-actions class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" [disabled]="isSaving"
+          (click)="saveCollectionTypesForm()">{{'COMMON.SAVE' | translate | capitalizeFirst}}</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -41,12 +41,12 @@ namespace EmbyStat.Services
         public IEnumerable<Collection> GetMusicCollections()
         {
             var settings = _settingsService.GetUserSettings();
-            return _collectionRepository.GetCollectionByTypes(settings.MovieCollectionTypes);
+            return _collectionRepository.GetCollectionByTypes(settings.MusicCollectionTypes);
         }
 
         public async Task<MusicStatistics> GetMusicStatisticsAsync(List<string> collectionIds)
         {
-            var statistic = _statisticsRepository.GetLastResultByType(StatisticType.Movie, collectionIds);
+            var statistic = _statisticsRepository.GetLastResultByType(StatisticType.Music, collectionIds);
 
             MusicStatistics statistics;
             if (StatisticsAreValid(statistic, collectionIds))
@@ -73,7 +73,7 @@ namespace EmbyStat.Services
             };
 
             var json = JsonConvert.SerializeObject(statistics);
-            _statisticsRepository.AddStatistic(json, DateTime.UtcNow, StatisticType.Movie, collectionIds);
+            _statisticsRepository.AddStatistic(json, DateTime.UtcNow, StatisticType.Music, collectionIds);
 
             return statistics;
         }
@@ -84,13 +84,11 @@ namespace EmbyStat.Services
             {
                 SongCount = TotalSongCount(songs),
                 GenreCount = TotalMusicGenres(songs),
-                //TotalPlayableTime = TotalPlayLength(songs),
-               //HighestRatedSong = HighestRatedSong(songs),
-               //LowestRatedSong = LowestRatedSong(songs),
+                TotalPlayableTime = TotalPlayLength(songs),
                 OldestReleasedSong = OldestReleasedSong(songs),
                 YoungestReleasedSong = YoungestReleasedSong(songs),
-                //ShortestSong = ShortestMovie(songs),
-                //LongestSong = LongestMovie(songs),
+                ShortestSong = ShortestSong(songs),
+                LongestSong = LongestSong(songs),
                 YoungestAddedSong = YoungestAddedSong(songs)
             };
         }
@@ -132,9 +130,9 @@ namespace EmbyStat.Services
             var duplicatesByTitle = songs.Where(x => !string.IsNullOrWhiteSpace(x.OriginalTitle)).GroupBy(x => x.OriginalTitle).Select(x => new { x.Key, Count = x.Count() }).Where(x => x.Count > 1).ToList();
             for (var i = 0; i < duplicatesByTitle.Count; i++)
             {
-                var duplicateMovies = songs.Where(x => x.OriginalTitle == duplicatesByTitle[i].Key).OrderBy(x => x.Id).ToList();
-                var itemOne = duplicateMovies[0];
-                var itemTwo = duplicateMovies[1];
+                var duplicateSongs = songs.Where(x => x.OriginalTitle == duplicatesByTitle[i].Key).OrderBy(x => x.Id).ToList();
+                var itemOne = duplicateSongs[0];
+                var itemTwo = duplicateSongs[1];
 
                 if (itemOne.Codec != itemTwo.Codec)
                 {
@@ -206,11 +204,11 @@ namespace EmbyStat.Services
             return new SongPoster();
         }
 
-        /*
+        
         private SongPoster ShortestSong(IEnumerable<Song> songs)
         {
             var settings = _settingsService.GetUserSettings();
-            var song = songs.Where(x => x.RunTimeTicks != null && x.RunTimeTicks >= settings.ToShortMovie)
+            var song = songs.Where(x => x.RunTimeTicks != null && x.RunTimeTicks >= settings.ToShortSong)
                               .OrderBy(x => x.RunTimeTicks)
                               .ThenBy(x => x.SortName)
                               .FirstOrDefault();
@@ -232,12 +230,12 @@ namespace EmbyStat.Services
 
             if (song != null)
             {
-                return PosterHelper.ConvertToSongPoster(song, Constants.Movies.Longest);
+                return PosterHelper.ConvertToSongPoster(song, Constants.Music.Longest);
             }
 
             return new SongPoster();
         }
-        */
+        
 
         private SongPoster YoungestAddedSong(IEnumerable<Song> songs)
         {
@@ -254,7 +252,7 @@ namespace EmbyStat.Services
             return new SongPoster();
         }
 
-        /*
+
         private TimeSpanCard TotalPlayLength(IEnumerable<Song> songs)
         {
             var playLength = new TimeSpan(songs.Sum(x => x.RunTimeTicks ?? 0));
@@ -266,7 +264,7 @@ namespace EmbyStat.Services
                 Minutes = playLength.Minutes
             };
         }
-        */
+        
 
         private Card<int> TotalTypeCount(IEnumerable<Song> songs, PersonType type, string title)
         {
@@ -282,15 +280,15 @@ namespace EmbyStat.Services
 
         private async Task<PersonPoster> GetMostFeaturedPersonAsync(IEnumerable<Song> songs, PersonType type, string title)
         {
-            var personId = songs.SelectMany(x => x.People)
+            var personName = songs.SelectMany(x => x.People)
                 .Where(x => x.Type == type)
-                .GroupBy(x => x.Id, x => x.Name, (id, name) => new { Key = id, Count = name.Count() })
+                .GroupBy(x => x.Name, (Name, people) => new { Name, Count = people.Count() })
                 .OrderByDescending(x => x.Count)
-                .Select(x => x.Key)
+                .Select(x => x.Name)
                 .FirstOrDefault();
-            if (personId != null)
+            if (personName != null)
             {
-                var person = await _personService.GetPersonByIdAsync(personId);
+                var person = await _personService.GetPersonByNameAsync(personName);
                 if (person != null)
                 {
                     return PosterHelper.ConvertToPersonPoster(person, title);
@@ -303,23 +301,25 @@ namespace EmbyStat.Services
 
         private async Task<List<PersonPoster>> GetMostFeaturedActorsPerGenreAsync(IReadOnlyCollection<Song> songs)
         {
+
             var list = new List<PersonPoster>();
             foreach (var genre in songs.SelectMany(x => x.Genres).Distinct().OrderBy(x => x))
             {
-                var selectedMovies = songs.Where(x => x.Genres.Any(y => y == genre));
-                var personId = selectedMovies
+                var selectedSongs = songs.Where(x => x.Genres.Any(y => y == genre));
+                var personName = selectedSongs
                     .SelectMany(x => x.People)
                     .Where(x => x.Type == PersonType.Actor)
-                    .GroupBy(x => x.Id)
-                    .Select(group => new { Id = group.Key, Count = group.Count() })
+                    .GroupBy(x => x.Name, (name, people) => new { Name = name, Count = people.Count() })
                     .OrderByDescending(x => x.Count)
-                    .Select(x => x.Id)
+                    .Select(x => x.Name)
                     .FirstOrDefault();
-
-                var person = await _personService.GetPersonByIdAsync(personId);
-                if (person != null)
+                if (personName != null)
                 {
-                    list.Add(PosterHelper.ConvertToPersonPoster(person, genre));
+                    var person = await _personService.GetPersonByNameAsync(personName);
+                    if (person != null)
+                    {
+                        list.Add(PosterHelper.ConvertToPersonPoster(person, genre));
+                    }
                 }
             }
 

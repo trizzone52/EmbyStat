@@ -16,8 +16,11 @@ namespace EmbyStat.Common.Models.Settings
         public string Language { get; set; }
         public bool ToShortMovieEnabled { get; set; }
         public int ToShortMovie { get; set; }
+        public bool ToShortSongEnabled { get; set; }
+        public int ToShortSong { get; set; }
         public int KeepLogsCount { get; set; }
         public List<CollectionType> MovieCollectionTypes { get; set; }
+        public List<CollectionType> MusicCollectionTypes { get; set; }
         public List<CollectionType> ShowCollectionTypes { get; set; }
         public bool AutoUpdate { get; set; }
         public UpdateTrain UpdateTrain { get; set; }

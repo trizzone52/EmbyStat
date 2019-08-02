@@ -39,7 +39,7 @@ namespace EmbyStat.Controllers.Music
 
         [HttpGet]
         [Route("typepresent")]
-        public IActionResult MovieTypeIsPresent()
+        public IActionResult MusicTypeIsPresent()
         {
             return Ok(_musicService.TypeIsPresent());
         }

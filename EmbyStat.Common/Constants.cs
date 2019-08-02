@@ -58,6 +58,7 @@ namespace EmbyStat.Common
         public static class Users
         {
             public static string TotalWatchedMovies => "USERS.STATS.TOTALWATCHEDMOVIES";
+            public static string TotalWatchedMusic => "USERS.STATS.TOTALWATCHEDMUSIC";
             public static string TotalWatchedEpisodes => "USERS.STATS.TOTALWATCHEDEPISODES";
         }
 

@@ -7,6 +7,7 @@ import { SettingsGeneralComponent } from './components/settings-general/settings
 import { SettingsOverviewComponent } from './settings-overview/settings-overview.component';
 import { SettingsEmbyComponent } from './components/settings-emby/settings-emby.component';
 import { SettingsMovieComponent } from './components/settings-movie/settings-movie.component';
+import { SettingsMusicComponent } from './components/settings-music/settings-music.component';
 import { SettingsShowComponent } from './components/settings-show/settings-show.component';
 import { SettingsUpdateComponent } from './components/settings-update/settings-update.component';
 
@@ -16,6 +17,7 @@ import { SettingsUpdateComponent } from './components/settings-update/settings-u
     SettingsGeneralComponent,
     SettingsEmbyComponent,
     SettingsMovieComponent,
+    SettingsMusicComponent,
     SettingsShowComponent,
     SettingsUpdateComponent
   ],

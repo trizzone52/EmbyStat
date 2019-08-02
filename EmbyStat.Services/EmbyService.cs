@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using EmbyStat.Clients.Emby.Http;
+﻿using EmbyStat.Clients.Emby.Http;
 using EmbyStat.Common;
 using EmbyStat.Common.Converters;
 using EmbyStat.Common.Enums;
@@ -20,6 +12,14 @@ using EmbyStat.Services.Models.Emby;
 using EmbyStat.Services.Models.Stat;
 using Newtonsoft.Json;
 using NLog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EmbyStat.Services
 {
@@ -189,6 +189,16 @@ namespace EmbyStat.Services
             {
                 Title = Constants.Users.TotalWatchedMovies,
                 Value = movieIds.Count()
+            };
+        }
+
+        public Card<int> GetViewedMusicCountByUserId(string id)
+        {
+            var musicIds = _sessionService.GetMediaIdsForUser(id, PlayType.Music);
+            return new Card<int>
+            {
+                Title = Constants.Users.TotalWatchedMusic,
+                Value = musicIds.Count()
             };
         }
 

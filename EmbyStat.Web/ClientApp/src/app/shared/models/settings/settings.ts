@@ -11,6 +11,7 @@ export class Settings {
   toShortMovieEnabled: boolean;
   keepLogsCount: number;
   movieCollectionTypes: number[];
+  musicCollectionTypes: number[];
   showCollectionTypes: number[];
   autoUpdate: boolean;
   updateTrain: number;

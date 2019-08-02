@@ -34,6 +34,7 @@ namespace EmbyStat.Services.Interfaces
         EmbyUser GetUserById(string id);
         Card<int> GetViewedEpisodeCountByUserId(string id);
         Card<int> GetViewedMovieCountByUserId(string id);
+        Card<int> GetViewedMusicCountByUserId(string id);
         IEnumerable<UserMediaView> GetUserViewPageByUserId(string id, int page, int size);
         int GetUserViewCount(string id);
         

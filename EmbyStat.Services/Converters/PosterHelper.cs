@@ -29,7 +29,7 @@ namespace EmbyStat.Services.Converters
                 Name = song.Name,
                 MediaId = song.Id,
                 Tag = song.Primary,
-                //DurationMinutes = Math.Floor(new TimeSpan(song.RunTimeTicks ?? 0).TotalMinutes),
+                DurationMinutes = Math.Floor(new TimeSpan(song.RunTimeTicks ?? 0).TotalMinutes),
                 Year = song.PremiereDate?.Year ?? 0
             };
         }

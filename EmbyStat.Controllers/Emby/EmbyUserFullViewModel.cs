@@ -22,6 +22,7 @@ namespace EmbyStat.Controllers.Emby
         public bool Deleted { get; set; }
         public string PrimaryImageTag { get; set; }
         public CardViewModel<int> ViewedMovieCount { get; set; }
+        public CardViewModel<int> ViewedMusicCount { get; set; }
         public CardViewModel<int> ViewedEpisodeCount { get; set; }
         public IList<UserMediaViewViewModel> LastWatchedMedia { get; set; }
     }

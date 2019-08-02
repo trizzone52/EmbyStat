@@ -49,10 +49,12 @@ namespace Tests.Unit.Services
 
             var movieRepositoryMock = new Mock<IMovieRepository>();
             movieRepositoryMock.Setup(x => x.GetMovieCountForPerson(It.IsAny<string>())).Returns(10);
+            var musicRepositoryMock = new Mock<IMusicRepository>();
+            musicRepositoryMock.Setup(x => x.GetSongCountForPerson(It.IsAny<string>())).Returns(10);
             var showRepositoryMock = new Mock<IShowRepository>();
             showRepositoryMock.Setup(x => x.GetShowCountForPerson(It.IsAny<string>())).Returns(2);
 
-            return new PersonService(PersonRepositoryMock.Object, showRepositoryMock.Object, movieRepositoryMock.Object, EmbyClientMock.Object);
+            return new PersonService(PersonRepositoryMock.Object, showRepositoryMock.Object, movieRepositoryMock.Object, musicRepositoryMock.Object, EmbyClientMock.Object);
         }
 
         [Fact]

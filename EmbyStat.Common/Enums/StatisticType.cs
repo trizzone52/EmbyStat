@@ -4,6 +4,7 @@
     {
         Movie = 0,
         Show = 1,
-        ShowCollectedRows = 2
+        Music = 2,
+        ShowCollectedRows = 3
     }
 }

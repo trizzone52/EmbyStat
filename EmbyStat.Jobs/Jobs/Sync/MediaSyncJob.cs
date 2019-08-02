@@ -30,27 +30,31 @@ namespace EmbyStat.Jobs.Jobs.Sync
     {
         private readonly IEmbyClient _embyClient;
         private readonly IMovieRepository _movieRepository;
+        private readonly IMusicRepository _musicRepository;
         private readonly IShowRepository _showRepository;
         private readonly IPersonRepository _personRepository;
         private readonly ICollectionRepository _collectionRepository;
         private readonly ITvdbClient _tvdbClient;
         private readonly IStatisticsRepository _statisticsRepository;
         private readonly IMovieService _movieService;
+        private readonly IMusicService _musicService;
         private readonly IShowService _showService;
 
         public MediaSyncJob(IJobHubHelper hubHelper, IJobRepository jobRepository, ISettingsService settingsService,
-            IEmbyClient embyClient, IMovieRepository movieRepository, IShowRepository showRepository,
+            IEmbyClient embyClient, IMovieRepository movieRepository, IMusicRepository musicRepository, IShowRepository showRepository,
             IPersonRepository personRepository, ICollectionRepository collectionRepository, ITvdbClient tvdbClient,
-            IStatisticsRepository statisticsRepository, IMovieService movieService, IShowService showService) : base(hubHelper, jobRepository, settingsService)
+            IStatisticsRepository statisticsRepository, IMovieService movieService, IMusicService musicService, IShowService showService) : base(hubHelper, jobRepository, settingsService)
         {
             _embyClient = embyClient;
             _movieRepository = movieRepository;
+            _musicRepository = musicRepository;
             _showRepository = showRepository;
             _personRepository = personRepository;
             _collectionRepository = collectionRepository;
             _tvdbClient = tvdbClient;
             _statisticsRepository = statisticsRepository;
             _movieService = movieService;
+            _musicService = musicService;
             _showService = showService;
             Title = jobRepository.GetById(Id).Title;
         }
@@ -118,6 +122,16 @@ namespace EmbyStat.Jobs.Jobs.Sync
             {
                 await _movieService.CalculateMovieStatistics(moviePowerSet.ToList());
                 await LogProgress(Math.Round(85 + 8 * (i + 1) / (double)movieCollectionSets.Count, 1));
+                i++;
+            }
+
+            var musicCollections = _musicService.GetMusicCollections().Select(x => x.Id).ToList();
+            var musicCollectionSets = musicCollections.PowerSets().ToList();
+            i = 0;
+            foreach (var musicPowerSet in musicCollectionSets)
+            {
+                await _musicService.CalculateMusicStatistics(musicPowerSet.ToList());
+                await LogProgress(Math.Round(85 + 8 * (i + 1) / (double)musicCollectionSets.Count, 1));
                 i++;
             }
 

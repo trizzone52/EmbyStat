@@ -1,6 +1,6 @@
 ﻿namespace EmbyStat.Controllers.Music
 {
-    public class ShortMusicViewModel : SuspiciousMusicViewModel
+    public class ShortSongViewModel : SuspiciousSongViewModel
     {
         public double Duration { get; set; }
     }

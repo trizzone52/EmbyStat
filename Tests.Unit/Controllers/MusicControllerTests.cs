@@ -36,7 +36,7 @@ namespace Tests.Unit.Controllers
                 LongestSong = new SongPoster { Name = "The lord of the rings" }
             };
 
-            var musictatistics = new MusicStatistics
+            var musicstatistics = new MusicStatistics
             {
                 General = _musicGeneral
             };
@@ -44,11 +44,11 @@ namespace Tests.Unit.Controllers
             _musicServiceMock = new Mock<IMusicService>();
             _musicServiceMock.Setup(x => x.GetMusicCollections()).Returns(_collections);
             _musicServiceMock.Setup(x => x.GetMusicStatisticsAsync(It.IsAny<List<string>>()))
-                .Returns(Task.FromResult(musictatistics));
+                .Returns(Task.FromResult(musicstatistics));
 
             var _mapperMock = new Mock<IMapper>();
             _mapperMock.Setup(x => x.Map<MusicStatisticsViewModel>(It.IsAny<MusicStatistics>()))
-                .Returns(new MusicStatisticsViewModel { General = new MusicGeneralViewModel { OldestPremieredSong = new SongPosterViewModel { Name = "The lord of the rings" } } });
+                .Returns(new MusicStatisticsViewModel { General = new MusicGeneralViewModel { LongestSong = new SongPosterViewModel { Name = "The lord of the rings" } } });
             _mapperMock.Setup(x => x.Map<IList<CollectionViewModel>>(It.IsAny<List<Collection>>())).Returns(
                 new List<CollectionViewModel>
                 {

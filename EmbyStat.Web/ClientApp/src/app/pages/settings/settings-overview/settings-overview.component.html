@@ -20,6 +20,11 @@
             <app-settings-movie [settings]="settings"></app-settings-movie>
           </div>
         </mat-tab>
+        <mat-tab label="{{'COMMON.MUSIC' | translate | capitalizeFirst}}">
+          <div class="mt-2 pl-0 container-fluid">
+            <app-settings-music [settings]="settings"></app-settings-music>
+          </div>
+        </mat-tab>
         <mat-tab label="{{'COMMON.SHOWS' | translate | capitalizeFirst}}">
           <div class="mt-2 pl-0 container-fluid">
             <app-settings-show [settings]="settings"></app-settings-show>

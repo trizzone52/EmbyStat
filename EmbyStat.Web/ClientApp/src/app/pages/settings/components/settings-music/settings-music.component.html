@@ -5,10 +5,10 @@
         <form [formGroup]="formToShort" class="d-flex flex-column">
           <p>{{'SETTINGS.MUSIC.TOSHORTTEXT' | translate }}</p>
           <p>
-            <mat-checkbox formControlName="toShortMusicEnabled">{{ 'FORMLABELS.ENABLETOSHORTMUSIC' | translate | capitalizeFirst }}</mat-checkbox>
+            <mat-checkbox formControlName="toShortSongEnabled">{{ 'FORMLABELS.ENABLETOSHORTSONG' | translate | capitalizeFirst }}</mat-checkbox>
           </p>
           <mat-form-field>
-            <input matInput placeholder="{{'FORMLABELS.DURATIONINMINUTES' | translate}}" formControlName="toShortMusic" [disableControl]="isSaving || !toShortMovieEnabledControl.value">
+            <input matInput placeholder="{{'FORMLABELS.DURATIONINMINUTES' | translate}}" formControlName="toShortSong" [disableControl]="isSaving || !toShortSongEnabledControl.value">
           </mat-form-field>
         </form>
       </mat-card-content>

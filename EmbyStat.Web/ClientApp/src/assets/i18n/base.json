@@ -25,6 +25,7 @@
     "BYIMDB": "same imdb id",
     "BYTITLE": "same title",
     "MOVIES": "movies",
+    "MUSIC": "music",
     "COUNTPERGENRE": "count / genre",
     "COUNTPERCOMMUNITYRATING": "count / rating",
     "COUNTPERPREMIEREDATE": "count / year",
@@ -70,6 +71,7 @@
     "LANGUAGE": "Please select your language",
     "DURATIONINMINUTES": "Duration in minutes",
     "ENABLETOSHORTMOVIES": "Enable to short movie calculation",
+    "ENABLETOSHORTSONG": "Enable for short song calculation",
     "TVDBAPI": "TheTVDB API key",
     "CRON": "Cron string",
     "EXCEPTIONLOGGING": "Enable exception logging"
@@ -80,6 +82,7 @@
   "MENU": {
     "DASHBOARD": "Dashboard",
     "MOVIES": "Movies",
+    "MUSIC": "Music",
     "SHOWS": "Shows",
     "SETTINGS": "Settings",
     "PLUGINS": "Plugins",
@@ -127,6 +130,21 @@
     "NOPOSTER": "Movies without a poster",
     "NOIMDB": "Movies without a IMDB id"
   },
+  "MUSIC": {
+    "COLLECTIONPLACEHOLDER": "Filter music collections",
+    "TOTALSONGS": "Total songs",
+    "TOTALGENRES": "Total genres",
+    "TOTALPLAYLENGTH": "Total watchable time",
+    "OLDESTRELEASED": "Oldest released",
+    "YOUNGESTRELEASED": "Youngest released",
+    "SHORTEST": "Shortest",
+    "LONGEST": "Longest",
+    "YOUNGESTADDED": "Youngest added",
+    "MOSTFEATUREDPERGENRE": "Most featured artist per genre",
+    "DUPLICATEMOVIES": "Duplicate song",
+    "TOSHORTSONGS": "Songs that are very short",
+    "NOPOSTER": "Songs without a poster"
+  },
   "SHOWS": {
     "TOTALSHOWS": "Total shows",
     "TOTALEPISODES": "Total Episodes",
@@ -166,6 +184,10 @@
     "MOVIE": {
       "TOSHORTTEXT": "To find the movies that are suspiciously short we need to know what the amount of minutes you find to short for a movie. Default this is set to 10 minutes but you can change it if needed.",
       "COLLECTIONTYPES": "Select all Emby collection types that you want to be able to select in the collection dropdown on the movie statistics page."
+    },
+    "MUSIC": {
+      "TOSHORTTEXT": "To find the songs that are suspiciously short we need to know what the amount of minutes you find to short for a song. Default this is set to 1 minute but you can change it if needed.",
+      "COLLECTIONTYPES": "Select all Emby collection types that you want to be able to select in the collection dropdown on the music statistics page."
     },
     "SHOW": {
       "COLLECTIONTYPES": "Select all Emby collection types that you want to be able to select in the collection dropdown on the show statistics page."
@@ -247,7 +269,7 @@
       "SMALLEMBYSYNCDESCRIPTION": "Perform a small sync with Emby server. This is a fast and small system update only.",
       "SMALLEMBYSYNCTITLE": "Small sync with Emby",
       "STARTSMALLEMBYSYNC": "Start small sync",
-      "MEDIASYNCDESCRIPTION": "Perform an incremental sync for your movie collection. This can take some time to run!",
+      "MEDIASYNCDESCRIPTION": "Perform an incremental sync for your collection. This can take some time to run!",
       "MEDIASYNCTITLE": "Media synchronization",
       "STARTMEDIASYNC": "Start media sync",
       "DATABASECLEANUPTITLE": "Database cleanup",
@@ -261,6 +283,10 @@
     "NOMOVIETYPEFOUND": {
       "TITLE": "No movies found",
       "BODY": "We couldn't find any movies in the EmbyStat database. If you have movies in Emby you should try starting a new media syncronisation task."
+    },
+    "NOMUSICTYPEFOUND": {
+      "TITLE": "No music found",
+      "BODY": "We couldn't find any music in the EmbyStat database. If you have music in Emby you should try starting a new media syncronisation task."
     },
     "NOSHOWTYPEFOUND": {
       "TITLE": "No shows found",

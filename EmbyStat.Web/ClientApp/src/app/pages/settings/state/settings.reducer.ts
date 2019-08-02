@@ -27,8 +27,10 @@ const INITIAL_STATE: Settings = {
   username: '',
   language: 'en-US',
   toShortMovie: 10,
+  toShortSong: 1,
   keepLogsCount: 20,
   movieCollectionTypes: [],
+  musicCollectionTypes: [],
   showCollectionTypes: [],
   autoUpdate: false,
   updateTrain: 2,
@@ -38,7 +40,8 @@ const INITIAL_STATE: Settings = {
   tvdb: tvdbSettings,
   enableRollbarLogging: false,
   isLoaded: false,
-  toShortMovieEnabled: false
+  toShortMovieEnabled: false,
+  toShortSongEnabled: false
 };
 
 export function settingsReducer(state: Settings = INITIAL_STATE, action: SettingsActions) {
@@ -52,8 +55,10 @@ export function settingsReducer(state: Settings = INITIAL_STATE, action: Setting
         emby: action.payload.emby,
         userId: action.payload.emby.userId,
         toShortMovie: action.payload.toShortMovie,
+        toShortSong: action.payload.toShortSong,
         id: action.payload.id,
         movieCollectionTypes: action.payload.movieCollectionTypes,
+        musicCollectionTypes: action.payload.musicCollectionTypes,
         showCollectionTypes: action.payload.showCollectionTypes,
         tvdb: action.payload.tvdb,
         keepLogsCount: action.payload.keepLogsCount,
@@ -63,7 +68,8 @@ export function settingsReducer(state: Settings = INITIAL_STATE, action: Setting
         updateInProgress: action.payload.updateInProgress,
         version: action.payload.version,
         enableRollbarLogging: action.payload.enableRollbarLogging,
-        toShortMovieEnabled: action.payload.toShortMovieEnabled
+        toShortMovieEnabled: action.payload.toShortMovieEnabled,
+        toShortSongEnabled: action.payload.toShortSongEnabled
       };
     case SettingsActionTypes.UPDATE_SETTINGS_SUCCESS:
       return {
@@ -74,8 +80,10 @@ export function settingsReducer(state: Settings = INITIAL_STATE, action: Setting
         emby: action.payload.emby,
         userId: action.payload.emby.userId,
         toShortMovie: action.payload.toShortMovie,
+        toShortSong: action.payload.toShortSong,
         id: action.payload.id,
         movieCollectionTypes: action.payload.movieCollectionTypes,
+        musicCollectionTypes: action.payload.musicCollectionTypes,
         showCollectionTypes: action.payload.showCollectionTypes,
         tvdb: action.payload.tvdb,
         keepLogsCount: action.payload.keepLogsCount,
@@ -85,7 +93,8 @@ export function settingsReducer(state: Settings = INITIAL_STATE, action: Setting
         updateInProgress: action.payload.updateInProgress,
         version: action.payload.version,
         enableRollbarLogging: action.payload.enableRollbarLogging,
-        toShortMovieEnabled: action.payload.toShortMovieEnabled
+        toShortMovieEnabled: action.payload.toShortMovieEnabled,
+        toShortSongEnabled: action.payload.toShortSongEnabled
       };
     default:
       return state;

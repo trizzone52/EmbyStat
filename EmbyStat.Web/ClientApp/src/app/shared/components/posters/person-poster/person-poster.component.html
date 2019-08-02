@@ -5,6 +5,10 @@
       <div>{{poster.movieCount}} <fa-icon icon="film"></fa-icon></div>
     </div>
     <div class="poster-row">
+      <div>{{poster.name | toShorterString:18 }}</div>
+      <div>{{poster.songCount}} <fa-icon icon="film"></fa-icon></div>
+    </div>
+    <div class="poster-row">
       <div>{{poster.birthDate | amDateFormat: 'DD/MM/YYYY'}}</div>
       <div>{{poster.showCount}}  <fa-icon icon="tv"></fa-icon></div>
     </div>

@@ -16,8 +16,8 @@ export class SettingsMusicComponent implements OnInit, OnDestroy, OnChanges {
   @Input() settings: Settings;
 
   formToShort: FormGroup;
-  toShortMusicControl = new FormControl('', [Validators.required]);
-  toShortMusicEnabledControl = new FormControl('', [Validators.required]);
+  toShortSongControl = new FormControl('', [Validators.required]);
+  toShortSongEnabledControl = new FormControl('', [Validators.required]);
 
   newCollectionList: number[];
   isSaving = false;
@@ -26,8 +26,8 @@ export class SettingsMusicComponent implements OnInit, OnDestroy, OnChanges {
     private readonly settingsFacade: SettingsFacade,
     private readonly toastService: ToastService) {
     this.formToShort = new FormGroup({
-      toShortMusic: this.toShortMusicControl,
-      toShortMusicEnabled: this.toShortMusicEnabledControl
+      toShortSong: this.toShortSongControl,
+      toShortSongEnabled: this.toShortSongEnabledControl
     });
   }
 
@@ -36,8 +36,8 @@ export class SettingsMusicComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(): void {
     if (this.settings !== undefined) {
-      this.toShortMusicControl.setValue(this.settings.toShortMusic);
-      this.toShortMusicEnabledControl.setValue(this.settings.toShortMusicEnabled);
+      this.toShortSongControl.setValue(this.settings.toShortSong);
+      this.toShortSongEnabledControl.setValue(this.settings.toShortSongEnabled);
     }
   }
 
@@ -46,8 +46,8 @@ export class SettingsMusicComponent implements OnInit, OnDestroy, OnChanges {
       this.isSaving = true;
 
       const settings = { ...this.settings };
-      settings.toShortMovie = this.toShortMusicControl.value;
-      settings.toShortMovieEnabled = this.toShortMusicEnabledControl.value;
+      settings.toShortSong = this.toShortSongControl.value;
+      settings.toShortSongEnabled = this.toShortSongEnabledControl.value;
       this.settingsFacade.updateSettings(settings);
       this.toastService.showSuccess('SETTINGS.SAVED.MUSIC');
       this.isSaving = false;

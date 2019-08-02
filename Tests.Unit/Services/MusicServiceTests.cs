@@ -141,13 +141,13 @@ namespace Tests.Unit.Services
 
             stat.Should().NotBeNull();
             stat.General.Should().NotBeNull();
-            stat.General.OldestReleasedSong.Should().NotBeNull();
-            stat.General.OldestReleasedSong.Title.Should().Be(Constants.Music.OldestPremiered);
-            stat.General.OldestReleasedSong.Name.Should().Be(_songOne.Name);
-            stat.General.OldestReleasedSong.DurationMinutes.Should().Be(130);
-            stat.General.OldestReleasedSong.MediaId.Should().Be(_songOne.Id);
-            stat.General.OldestReleasedSong.Tag.Should().Be(_songOne.Primary);
-            stat.General.OldestReleasedSong.Year.Should().Be(2002);
+            stat.General.OldestPremieredSong.Should().NotBeNull();
+            stat.General.OldestPremieredSong.Title.Should().Be(Constants.Music.OldestPremiered);
+            stat.General.OldestPremieredSong.Name.Should().Be(_songOne.Name);
+            stat.General.OldestPremieredSong.DurationMinutes.Should().Be(130);
+            stat.General.OldestPremieredSong.MediaId.Should().Be(_songOne.Id);
+            stat.General.OldestPremieredSong.Tag.Should().Be(_songOne.Primary);
+            stat.General.OldestPremieredSong.Year.Should().Be(2002);
         }
 
         [Fact]
@@ -157,13 +157,13 @@ namespace Tests.Unit.Services
 
             stat.Should().NotBeNull();
             stat.General.Should().NotBeNull();
-            stat.General.YoungestReleasedSong.Should().NotBeNull();
-            stat.General.YoungestReleasedSong.Title.Should().Be(Constants.Music.YoungestPremiered);
-            stat.General.YoungestReleasedSong.Name.Should().Be(_songThree.Name);
-            stat.General.YoungestReleasedSong.DurationMinutes.Should().Be(230);
-            stat.General.YoungestReleasedSong.MediaId.Should().Be(_songThree.Id);
-            stat.General.YoungestReleasedSong.Tag.Should().Be(_songThree.Primary);
-            stat.General.YoungestReleasedSong.Year.Should().Be(_songThree.PremiereDate.Value.Year);
+            stat.General.YoungestPremieredSong.Should().NotBeNull();
+            stat.General.YoungestPremieredSong.Title.Should().Be(Constants.Music.YoungestPremiered);
+            stat.General.YoungestPremieredSong.Name.Should().Be(_songThree.Name);
+            stat.General.YoungestPremieredSong.DurationMinutes.Should().Be(230);
+            stat.General.YoungestPremieredSong.MediaId.Should().Be(_songThree.Id);
+            stat.General.YoungestPremieredSong.Tag.Should().Be(_songThree.Primary);
+            stat.General.YoungestPremieredSong.Year.Should().Be(_songThree.PremiereDate.Value.Year);
         }
 
         [Fact]
@@ -240,7 +240,7 @@ namespace Tests.Unit.Services
             var stat = await _subject.GetMusicStatisticsAsync(_collections.Select(x => x.Id).ToList());
 
             stat.Should().NotBeNull();
-            stat.Charts.BarCharts.Count.Should().Be(4);
+            stat.Charts.BarCharts.Count.Should().Be(2);
             stat.Charts.BarCharts.Any(x => x.Title == Constants.CountPerGenre).Should().BeTrue();
 
             var graph = stat.Charts.BarCharts.SingleOrDefault(x => x.Title == Constants.CountPerGenre);
@@ -271,7 +271,7 @@ namespace Tests.Unit.Services
 
             var stat = await service.GetMusicStatisticsAsync(_collections.Select(x => x.Id).ToList());
             stat.Should().NotBeNull();
-            stat.Charts.BarCharts.Count.Should().Be(4);
+            stat.Charts.BarCharts.Count.Should().Be(2);
             stat.Charts.BarCharts.Any(x => x.Title == Constants.CountPerPremiereYear).Should().BeTrue();
 
             var graph = stat.Charts.BarCharts.SingleOrDefault(x => x.Title == Constants.CountPerPremiereYear);
@@ -297,7 +297,7 @@ namespace Tests.Unit.Services
 
             var stat = await service.GetMusicStatisticsAsync(_collections.Select(x => x.Id).ToList());
             stat.Should().NotBeNull();
-            stat.Charts.BarCharts.Count.Should().Be(4);
+            stat.Charts.BarCharts.Count.Should().Be(2);
             stat.Charts.BarCharts.Any(x => x.Title == Constants.CountPerPremiereYear).Should().BeTrue();
 
             var graph = stat.Charts.BarCharts.SingleOrDefault(x => x.Title == Constants.CountPerPremiereYear);

@@ -52,6 +52,11 @@ namespace EmbyStat.Services
             if (StatisticsAreValid(statistic, collectionIds))
             {
                 statistics = JsonConvert.DeserializeObject<MusicStatistics>(statistic.JsonResult);
+
+                if (!_settingsService.GetUserSettings().ToShortSongEnabled && statistics.Suspicious.Shorts.Any())
+                {
+                    statistics.Suspicious.Shorts = new List<ShortSong>();
+                }
             }
             else
             {
@@ -70,6 +75,7 @@ namespace EmbyStat.Services
                 General = CalculateGeneralStatistics(songs),
                 Charts = CalculateCharts(songs),
                 People = await CalculatePeopleStatistics(songs),
+                Suspicious = CalculateSuspiciousSongs(songs)
             };
 
             var json = JsonConvert.SerializeObject(statistics);
@@ -85,8 +91,8 @@ namespace EmbyStat.Services
                 SongCount = TotalSongCount(songs),
                 GenreCount = TotalMusicGenres(songs),
                 TotalPlayableTime = TotalPlayLength(songs),
-                OldestReleasedSong = OldestReleasedSong(songs),
-                YoungestReleasedSong = YoungestReleasedSong(songs),
+                OldestPremieredSong = OldestPremieredSong(songs),
+                YoungestPremieredSong = YoungestPremieredSong(songs),
                 ShortestSong = ShortestSong(songs),
                 LongestSong = LongestSong(songs),
                 YoungestAddedSong = YoungestAddedSong(songs)
@@ -118,11 +124,22 @@ namespace EmbyStat.Services
             return stats;
         }
 
+        public SuspiciousSongTables CalculateSuspiciousSongs(IReadOnlyCollection<Song> songs)
+        {
+            return new SuspiciousSongTables
+            {
+                //Duplicates = GetDuplicates(songs),
+                Shorts = GetShortSongs(songs),
+                NoPrimary = GetSongsWithoutPrimaryImage(songs)
+            };
+        }
+
         public bool TypeIsPresent()
         {
             return _musicRepository.Any();
         }
 
+        /*
         private IEnumerable<SongDuplicate> GetDuplicates(IReadOnlyCollection<Song> songs)
         {
             var list = new List<SongDuplicate>();
@@ -151,6 +168,44 @@ namespace EmbyStat.Services
 
             return list.OrderBy(x => x.Title).ToList();
         }
+        */
+
+        private IEnumerable<ShortSong> GetShortSongs(IEnumerable<Song> songs)
+        {
+            var settings = _settingsService.GetUserSettings();
+            if (!settings.ToShortSongEnabled)
+            {
+                return new List<ShortSong>(0);
+            }
+
+            var shortSongs = songs
+                .Where(x => x.RunTimeTicks != null)
+                .Where(x => new TimeSpan(x.RunTimeTicks ?? 0).TotalMinutes < settings.ToShortSong)
+                .OrderBy(x => x.SortName);
+            return shortSongs.Select((t, i) => new ShortSong
+            {
+                Number = i++,
+                Duration = Math.Floor(new TimeSpan(t.RunTimeTicks ?? 0).TotalMinutes),
+                Title = t.Name,
+                MediaId = t.Id
+            }).ToList();
+        }
+
+        private IEnumerable<SuspiciousSong> GetSongsWithoutPrimaryImage(IEnumerable<Song> songs)
+        {
+            var noPrimaryImageSongs = songs
+                .Where(x => string.IsNullOrWhiteSpace(x.Primary))
+                .OrderBy(x => x.SortName)
+                .Select((t, i) => new SuspiciousSong
+                {
+                    Number = i++,
+                    Title = t.Name,
+                    MediaId = t.Id
+                })
+                .ToList();
+
+            return noPrimaryImageSongs;
+        }
 
         #region StatCreators
 
@@ -174,7 +229,7 @@ namespace EmbyStat.Services
             };
         }
 
-        private SongPoster OldestReleasedSong(IEnumerable<Song> songs)
+        private SongPoster OldestPremieredSong(IEnumerable<Song> songs)
         {
             var song = songs.Where(x => x.PremiereDate != null)
                               .OrderBy(x => x.PremiereDate)
@@ -189,7 +244,7 @@ namespace EmbyStat.Services
             return new SongPoster();
         }
 
-        private SongPoster YoungestReleasedSong(IEnumerable<Song> songs)
+        private SongPoster YoungestPremieredSong(IEnumerable<Song> songs)
         {
             var song = songs.Where(x => x.PremiereDate != null)
                               .OrderByDescending(x => x.PremiereDate)

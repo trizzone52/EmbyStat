@@ -10,5 +10,6 @@ namespace EmbyStat.Services.Models.Music
         public MusicGeneral General { get; set; }
         public MusicCharts Charts { get; set; }
         public PersonStats People { get; set; }
+        public SuspiciousSongTables Suspicious { get; set; }
     }
 }

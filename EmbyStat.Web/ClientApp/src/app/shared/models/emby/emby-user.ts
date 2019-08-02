@@ -19,6 +19,7 @@ export class EmbyUser {
   deleted: boolean;
   primaryImageTag: string;
   viewedMovieCount: Card<number>;
+  viewedMusicCount: Card<number>;
   viewedEpisodeCount: Card<number>;
   lastWatchedMedia: UserMediaView[];
 }

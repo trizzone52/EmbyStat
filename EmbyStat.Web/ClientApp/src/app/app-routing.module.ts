@@ -8,6 +8,7 @@ import {
 import { JobsOverviewComponent } from './pages/jobs/jobs-overview/jobs-overview.component';
 import { LogsOverviewComponent } from './pages/logs/logs-overview/logs-overview.component';
 import { MovieOverviewComponent } from './pages/movie/movie-overview/movie-overview.component';
+import { MusicOverviewComponent } from './pages/music/music-overview/music-overview.component';
 import { PluginOverviewComponent } from './pages/plugin/plugin-overview/plugin-overview.component';
 import { ServerOverviewComponent } from './pages/server/server-overview/server-overview.component';
 import {
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'plugins', component: PluginOverviewComponent },
   { path: 'server', component: ServerOverviewComponent },
   { path: 'movies', component: MovieOverviewComponent, canActivate: [SyncGuard] },
+  { path: 'music', component: MusicOverviewComponent, canActivate: [SyncGuard] },
   { path: 'shows', component: ShowOverviewComponent, canActivate: [SyncGuard] },
   { path: 'settings', component: SettingsOverviewComponent },
   { path: 'settings/:tab', component: SettingsOverviewComponent },

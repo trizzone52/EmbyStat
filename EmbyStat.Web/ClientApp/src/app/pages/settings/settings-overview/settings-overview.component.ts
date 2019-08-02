@@ -29,12 +29,15 @@ export class SettingsOverviewComponent implements OnInit, OnDestroy {
         break;
       case 'movies':
         this.selected = 2;
-        break;
-      case 'shows':
+          break;
+      case 'music':
         this.selected = 3;
+          break;
+      case 'shows':
+        this.selected = 4;
         break;
       case 'updates':
-        this.selected = 4;
+        this.selected = 5;
         break;
       default:
         this.selected = 0;

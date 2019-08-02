@@ -9,6 +9,8 @@ export class Settings {
   language: string;
   toShortMovie: number;
   toShortMovieEnabled: boolean;
+  toShortSong: number;
+  toShortSongEnabled: boolean;
   keepLogsCount: number;
   movieCollectionTypes: number[];
   musicCollectionTypes: number[];

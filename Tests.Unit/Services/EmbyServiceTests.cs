@@ -72,12 +72,13 @@ namespace Tests.Unit.Services
 	        settingsServiceMock.Setup(x => x.GetUserSettings()).Returns(new UserSettings());
 
             var movieRepositoryMock = new Mock<IMovieRepository>();
+            var musicRepositoryMock = new Mock<IMusicRepository>();
             var showRepositoryMock = new Mock<IShowRepository>();
             var embyRepositoryMock = new Mock<IEmbyRepository>();
             var sessionServiceMock = new Mock<ISessionService>();
 
             _subject = new EmbyService(_embyClientMock.Object, embyRepositoryMock.Object, sessionServiceMock.Object,
-                settingsServiceMock.Object, movieRepositoryMock.Object, showRepositoryMock.Object);
+                settingsServiceMock.Object, movieRepositoryMock.Object, musicRepositoryMock.Object, showRepositoryMock.Object);
 	    }
 
         [Fact]

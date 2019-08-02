@@ -9,6 +9,17 @@
   </div>
 </div>
 
+<div *ngIf="data === 'MUSIC'">
+  <h1 mat-dialog-title>{{'DIALOGS.NOMUSICTYPEFOUND.TITLE' | translate | capitalizeFirst}}</h1>
+  <div mat-dialog-content>
+    <p>{{'DIALOGS.NOMUSICTYPEFOUND.BODY' | translate }}</p>
+  </div>
+  <div mat-dialog-actions class="d-flex flex-row justify-content-end mb-0">
+    <button mat-raised-button color="warn" (click)="cancelClick()" [disabled]="disableButtons">{{ 'COMMON.CLOSE' | translate | capitalizeFirst }}</button>
+    <button mat-raised-button color="primary" (click)="startMediaSync()" cdkFocusInitial [disabled]="disableButtons">{{ 'JOB.INFO.STARTMEDIASYNC' | translate | capitalizeFirst }}</button>
+  </div>
+</div>
+
 <div *ngIf="data === 'SHOWS'">
   <h1 mat-dialog-title>{{'DIALOGS.NOSHOWTYPEFOUND.TITLE' | translate | capitalizeFirst}}</h1>
   <div mat-dialog-content>

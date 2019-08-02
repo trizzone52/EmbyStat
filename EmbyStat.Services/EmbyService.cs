@@ -30,17 +30,19 @@ namespace EmbyStat.Services
         private readonly ISessionService _sessionService;
         private readonly ISettingsService _settingsService;
         private readonly IMovieRepository _movieRepository;
+        private readonly IMusicRepository _musicRepository;
         private readonly IShowRepository _showRepository;
         private readonly Logger _logger;
 
         public EmbyService(IEmbyClient embyClient, IEmbyRepository embyRepository, ISessionService sessionService,
-            ISettingsService settingsService, IMovieRepository movieRepository, IShowRepository showRepository)
+            ISettingsService settingsService, IMovieRepository movieRepository, IMusicRepository musicRepository, IShowRepository showRepository)
         {
             _embyClient = embyClient;
             _embyRepository = embyRepository;
             _sessionService = sessionService;
             _settingsService = settingsService;
             _movieRepository = movieRepository;
+            _musicRepository = musicRepository;
             _showRepository = showRepository;
             _logger = LogManager.GetCurrentClassLogger();
         }
@@ -309,6 +311,33 @@ namespace EmbyStat.Services
             };
         }
 
+        private UserMediaView CreateUserMediaViewFromSong(Play play, Device device)
+        {
+            var song = _musicRepository.GetSongById(play.MediaId);
+            if (song == null)
+            {
+                throw new BusinessException("MOVIENOTFOUND");
+            }
+
+            var startedPlaying = play.PlayStates.Min(x => x.TimeLogged);
+            var endedPlaying = play.PlayStates.Max(x => x.TimeLogged);
+            var watchedTime = endedPlaying - startedPlaying;
+
+            return new UserMediaView
+            {
+                Id = song.Id,
+                Name = song.Name,
+                ParentId = song.ParentId,
+                Primary = song.Primary,
+                StartedWatching = startedPlaying,
+                EndedWatching = endedPlaying,
+                WatchedTime = Math.Round(watchedTime.TotalSeconds),
+                WatchedPercentage = CalculateWatchedPercentage(play, song),
+                DeviceId = device?.Id ?? string.Empty,
+                DeviceLogo = device?.IconUrl ?? string.Empty
+            };
+        }
+
         private UserMediaView CreateUserMediaViewFromEpisode(Play play, Device device)
         {
             var episode = _showRepository.GetEpisodeById(play.MediaId);
@@ -342,6 +371,20 @@ namespace EmbyStat.Services
         }
 
         private decimal? CalculateWatchedPercentage(Play play, Extra media)
+        {
+            decimal? watchedPercentage = null;
+            if (media.RunTimeTicks.HasValue)
+            {
+                var playStates = play.PlayStates.Where(x => x.PositionTicks.HasValue).ToList();
+                var watchedTicks = playStates.Max(x => x.PositionTicks) -
+                                   playStates.Min(x => x.PositionTicks);
+                watchedPercentage = Math.Round((watchedTicks.Value / (decimal)media.RunTimeTicks.Value) * 1000) / 10;
+            }
+
+            return watchedPercentage;
+        }
+
+        private decimal? CalculateWatchedPercentage(Play play, Audio media)
         {
             decimal? watchedPercentage = null;
             if (media.RunTimeTicks.HasValue)

@@ -38,7 +38,14 @@ export class MusicOverviewComponent implements OnInit, OnDestroy {
 
   settings: Settings;
 
-  /*noPrimaryDisplayedColumns = ['number', 'title', 'link'];*/
+  suspiciousDisplayedWideColumns = [
+    'position', 'title', 'reason', 'linkOne', 'qualityOne', 'addedOnOne', 'linkTwo', 'qualityTwo', 'addedOnTwo'
+  ];
+  suspiciousDisplayedSmallColumns = [
+    'position', 'title', 'reason', 'linkOne', 'linkTwo'
+  ];
+  shortDisplayedColumns = ['number', 'title', 'duration', 'link'];
+  noPrimaryDisplayedColumns = ['number', 'title', 'link'];
 
   barOptions: Options;
 
@@ -75,6 +82,9 @@ export class MusicOverviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+  getSuspiciousColumns(): string[] {
+    return window.window.innerWidth > 720 ? this.suspiciousDisplayedWideColumns : this.suspiciousDisplayedSmallColumns;
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
